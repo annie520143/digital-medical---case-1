@@ -8,4 +8,4 @@
 ##### new version #####
 
 ###### `python section_select.py`
-###### `python sentenct_splitting.py`
+###### `python sentence_splitting.py`
