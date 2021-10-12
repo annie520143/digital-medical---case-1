@@ -4,3 +4,8 @@
 ---
 #### future work
 1. validation set
+
+##### new version #####
+
+###### `python section_select.py`
+###### `python sentenct_splitting.py`
