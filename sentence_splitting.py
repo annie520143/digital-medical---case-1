@@ -29,10 +29,12 @@ print("which method? 1.if else method, 2.paper method, 3.our method")
 choose=int(input())
 method=methods[choose-1]
 print("section select? 1.yes, 2.no")
-choose=int(input())
+section=int(input())
+print("use negex? 1.yes, 2.no")
+negex=int(input())
 
 #Set folder
-if choose==1: path=root+"preprocessing/"
+if section==1: path=root+"preprocessing/"
 else:
     path=root+"Train_Textual/"
     if(dataset=="test"):path=root+"Test_Intuitive/"
@@ -51,33 +53,45 @@ for file in files:
             labels.append(0)
     with open(position, "r") as f:
         data = f.read()
-        txts.append(nltk.sent_tokenize(data))
+        if negex==1:txts.append(nltk.sent_tokenize(data))
+        else: txts.append(data.split(" "))
 print("data size:",len(txts))
 
 #If else method
 if method=="if else":
-    i=0
     targets=["obese", "obesity", "overweight"]
-    keys = []
-    keywords = []
-    for data in txts:
-        #find which sentence index contain keywords
-        key = []
-        keyword = []
-        for i, sentence in enumerate(data):
-            data[i] = sentence.replace('\n', ' ')
+    if negex==1:
+        i=0
+        keys = []
+        keywords = []
+        for data in txts:
+            #find which sentence index contain keywords
+            key = []
+            keyword = []
+            for i, sentence in enumerate(data):
+                data[i] = sentence.replace('\n', ' ')
 
-            for target in targets:
-                if (sentence.find(target) != -1): 
-                    key.append(i)
-                    keyword.append(target)
-                    break
+                for target in targets:
+                    if (sentence.find(target) != -1): 
+                        key.append(i)
+                        keyword.append(target)
+                        break
 
-        keys.append(key)
-        keywords.append(keyword)
-
-#Construct negex output in negex_output.txt
-predicts = negexFormatting(root, txts, keys, keywords, labels)
+            keys.append(key)
+            keywords.append(keyword)
+        #Construct negex output in negex_output.txt
+        predicts = negexFormatting(root, txts, keys, keywords, labels)
+    else:
+        for data in txts:
+            find=False
+            for words in data:
+                for target in targets:
+                    if words.lower()==target:
+                        find=True
+            if find==True:
+                predicts.append(1)
+            else:
+                predicts.append(0)
 
 
 #Paper method
