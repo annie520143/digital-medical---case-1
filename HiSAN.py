@@ -6,7 +6,7 @@ import sys
 import time
 from sklearn.metrics import f1_score
 import random
-
+import argparse
 import json
 import string
 import numpy as np
@@ -18,24 +18,39 @@ from numpy import random, vstack, save, zeros
 from gensim.models import Word2Vec
 # import logging
 import pickle
+import sys
+
+sys.path.insert(0, './preprocessing')
+
+from preprocessing import *
 
 word2vec_min_count = 5
 
+def getParse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--lemma', type=str, default='n')
+    parser.add_argument('--stop', type=str, default='n')
+    return parser
 
 def clearup(document):
     # document = document.translate(string.punctuation)
     numbers = re.search('[0-9]+', document)
+    # document = re.sub('[^a-zA-Z]', ' ', document)
     document = re.sub('\(\d+.\d+\)|\d-\d|\d', '', document) \
         .replace('.', '').replace(',', '').replace(',', '').replace(':', '').replace('~', '') \
         .replace('!', '').replace('@', '').replace('#', '').replace('$', '').replace('/', '') \
-        .replace('%', '').replace('(', '').replace(')', '').replace('?', '') \
+        .replace('%', '').replace('(', '').replace(')', '').replace('?', '').replace('|', '') \
         .replace('—', '').replace(';', '').replace('&quot', '').replace('&lt', '') \
         .replace('^', '').replace('"', '').replace('{', '').replace('}', '').replace('\\', '').replace('+', '') \
         .replace('&gt', '').replace('&apos', '').replace('*', '').strip().lower().split()
     # return re.sub('[l]+', ' ', str(document)).strip()
+
+    if(args.lemma == 'y'):
+        document = lemmatize(document)
+    if(args.stop == 'y'):
+        document = removeStopwords(document)
+
     return document
-
-
 
 def size(alist):
     return len(alist)
@@ -82,7 +97,7 @@ def word2Vec(docs,word_index):
     # save data
     return text_idx,word2idx,vocab
 
-root="/home/gdwang/Downloads/Case Presentation 1 Data/"
+root="C:/Users/User/Desktop/digital-medical---case-1/Case Presentation 1 Data/"
 datasets=["train","test","validation"]
 methods=["if else","paper","our"]
 padded_label = []
@@ -94,9 +109,13 @@ path_test=root+"Test_Intuitive/"
 path_valid=root+"Validation/"
 paths = [path_train, path_test, path_valid]
 
+parser = getParse()
+args = parser.parse_args()
+
 for path in paths:
     files= os.listdir(path)
     for file in files:
+        #print(path, file)
         input_file_name.append(file)
         position = path + file
         if path!= path_valid :
@@ -121,6 +140,7 @@ for path in paths:
             temp = ".".join(temp)
             doc = clearup(temp)
             padded_documents.append(doc)
+            
 
 
 
@@ -623,5 +643,4 @@ if __name__ == "__main__":
     dict = {'Filename':ans_file_name,'Obesity':final_ans}
     df = pd.DataFrame(dict) 
     df.to_csv(output_file_name,index=None)
-
 
