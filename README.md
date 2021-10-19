@@ -30,18 +30,39 @@ see requirements.txt
  * parameter
    * lemma : Do you want to lemmatize input data? n for no, y for yes
    * stop :  Do you want to remove stopwords for input data? n for no, y for yes
+   * word2vec_min_count : 5
+   * batch_size : 64
+   * epochs : 100
+   * max_lines : 401
+   * max_words : 50
+   * num_classes : 2
+   * embedding_size : 300
+   * attention_heads : 8
+   * attention_size : 400
   
 2. SVM : our ML model, is also the best performance model
  ```
   python SVM.py --lemma n --stop n
  ```
- 
+  * parameter
+   * lemma : Do you want to lemmatize input data? n for no, y for yes
+   * stop :  Do you want to remove stopwords for input data? n for no, y for yes
+   * word2vec_min_count : 5
+   * C : 1
+   * kernel : linear
+   * gamma : auto
  3. if-else method
  ```
  cd negex
  python ifelse.py
  ```
-
+### Result
+| method | train | test | valid  |
+| -------- | -------- | --------  | ------- |
+| intuitive| none | none | 0.57 |
+| ifelse   | 0.91 | 0.92 | 0.54 |
+| SVM      | 1.00 | 0.83 | 0.60 |
+| HiSAN    | 0.95 | 0.85 | 0.57 |
 ### Reference
 * [A text mining approach to the prediction of disease status from clinical discharge summaries](https://pubmed.ncbi.nlm.nih.gov/19390098/)
 * [A Simple Algorithm for Identifying Negated Findings and Diseases in Discharge Summaries](https://www.sciencedirect.com/science/article/pii/S1532046401910299)
