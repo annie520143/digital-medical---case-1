@@ -7,14 +7,14 @@
 
 ### File Description
 * `/embedding/`
-  * `tfidf_embedding.py`: Run **tfidf** embedding and **Logistic Regression** with F1 score
+  * `tfidf_embedding.py`: Run **tfidf** embedding and **Logistic Regression** and output F1 score
   * `word2vec_embedding.py` : **word2vec** embedding and output to .npy form 
-* `/model/`
-* `/negex/`
-* `/preprocessing/`
-* `HiSAN.py`
-* `SVM.py`
-* `section_select.py`
+* `/model/` : pretrained model for word2vec embedding 
+* `/negex/` : **negex** + **if/else** method
+* `/preprocessing/` : 
+* `HiSAN.py` : **word2vec** + **HiSAN**
+* `SVM.py` : **word2vec** + **SVM**
+* `section_select.py` : select section with Jaccard Similarity
 
 ### Requirements
 ### Implementation
