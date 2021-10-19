@@ -6,7 +6,7 @@ def negexWrapper():
     rfile = open(r'negex_triggers.txt')
     irules = sortRules(rfile.readlines())
     #reports = csv.reader(open(r'Annotations-1-120.txt','rt'), delimiter = '\t')
-    reports = csv.reader(open(r'Case Presentation 1 Data/negex.txt','rt'), delimiter = '\t')
+    reports = csv.reader(open(r'negex.txt','rt'), delimiter = '\t')
     next(reports)
     reportNum = 0
     correctNum = 0
