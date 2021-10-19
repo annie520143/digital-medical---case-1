@@ -59,7 +59,7 @@ see requirements.txt
 ### Result
 | method | train | test | valid  |
 | -------- | -------- | --------  | ------- |
-| intuitive| none | none | 0.57 |
+| intuition| none | none | 0.57 |
 | ifelse   | 0.91 | 0.92 | 0.54 |
 | SVM      | 1.00 | 0.83 | 0.60 |
 | HiSAN    | 0.95 | 0.85 | 0.57 |
