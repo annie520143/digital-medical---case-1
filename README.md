@@ -33,13 +33,13 @@ see requirements.txt
   
 2. SVM : our ML model, is also the best performance model
  ```
-  python SVM.py
+  python SVM.py --lemma n --stop n
  ```
  
  3. if-else method
  ```
  cd negex
- python case1.py
+ python ifelse.py
  ```
 
 ### Reference
