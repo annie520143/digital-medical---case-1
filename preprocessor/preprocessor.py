@@ -5,7 +5,6 @@ from nltk.stem import WordNetLemmatizer
 def removeStopwords(sentence):
 
     stops = nltk.corpus.stopwords.words('english')
-    stops.append('mg')
     for i,word in enumerate(sentence):
         if word in stops:
             sentence[i] = ''
